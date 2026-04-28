@@ -1,3 +1,4 @@
+import { error } from "console";
 
 //*Significa que CustomError hereda de la clase nativa Error de JavaScript.
 export class CustomError extends Error {
