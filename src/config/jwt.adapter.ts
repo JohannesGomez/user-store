@@ -23,8 +23,16 @@ export class JwtAdapter {
     }
 
     static validateToken(token:string) {
-
+        // decoded : firma jwt web token en el payload
+        return new Promise((resolve) => {
+            jwt.verify( token, JWT_SEED, (err, decoded) => {
+                if(err) return resolve(null);
+                resolve(decoded);
+            });            
+            
+        });
     }
+    
 }
 
 
