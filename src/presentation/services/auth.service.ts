@@ -3,7 +3,6 @@ import { UserModel } from "../../data";
 import { CustomError, LoginUserDto, UserEntity } from "../../domain";
 import { RegisterUserDto } from "../../domain/dtos/auth/register-user.dto";
 import { EmailService } from "./email.service";
-import jwt from 'jsonwebtoken';
 
 
 
@@ -32,8 +31,7 @@ export class AuthService {
             await user.save();
 
             // Email de confirmacion
-            await this.sendEmailValidationLink( user.email );
-            
+            await this.sendEmailValidationLink( user.email );            
             // Crear Token
             const token = await JwtAdapter.generateToken({id: user.id,});
             if( !token ) throw CustomError.internalServel('Impossible to create token');
@@ -57,11 +55,11 @@ export class AuthService {
         
         try {
             if ( user) {
-               if ( !bcryptAdapter.compare(loginUserDto.password, user.password) ) 
-               throw CustomError.badRequest('Password is invalid');               
+                if ( !bcryptAdapter.compare(loginUserDto.password, user.password) ) 
+                throw CustomError.badRequest('Password is invalid');               
                            
-               const { password, ...userEntity} = UserEntity.fromObject(user);
-               const token = await JwtAdapter.generateToken({
+                const { password, ...userEntity} = UserEntity.fromObject(user);
+                const token = await JwtAdapter.generateToken({
                     id: user.id,
                 });
 

@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     },
     img :{
         type: String
-    },
+    },    
     role: {
         type: [String],
         default:['USER_ROLE'],
@@ -35,6 +35,5 @@ const userSchema = new mongoose.Schema({
 });
 
 export const UserModel = mongoose.model(
-    'User',
-    userSchema
+    'User', userSchema
 );

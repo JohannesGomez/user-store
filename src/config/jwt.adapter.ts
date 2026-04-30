@@ -7,7 +7,7 @@ const JWT_SEED = envs.JWT_SEED
 
 export class JwtAdapter {
 
-    static async generateToken( payload:any, duration: string = '120' ) {        
+    static async generateToken( payload:any, duration: string = '13600' ) {        
         /**
          * SEED : 
          * Un valor secreto (clave secreta)
@@ -22,12 +22,13 @@ export class JwtAdapter {
         })
     }
 
-    static validateToken(token:string) {
+    
+    static validateToken<T>(token:string):Promise<T|null> {
         // decoded : firma jwt web token en el payload
         return new Promise((resolve) => {
             jwt.verify( token, JWT_SEED, (err, decoded) => {
                 if(err) return resolve(null);
-                resolve(decoded);
+                resolve( decoded as T );
             });            
             
         });
